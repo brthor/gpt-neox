@@ -293,6 +293,26 @@ class Enwik8(DataDownloader):
     urls = ["https://data.deepai.org/enwik8.zip"]
 
 
+class RedPajamaData1T(DataDownloader):
+    name = "redpajama_data_1t"
+
+    @property
+    def urls(self):
+        aggregate_url = "https://data.together.xyz/redpajama-data-1T/v1.0.0/urls.txt"
+
+        try:
+            response = urllib.request.urlopen(aggregate_url)
+            data = response.read()
+
+            urls = data.decode().strip()aggregate_url.split('\n')
+
+        except urllib.error.URLError as e:
+            print(f"Error downloading aggregate url file: {e.reason}")
+            raise
+
+        return urls
+
+
 def maybe_download_gpt2_tokenizer_data(tokenizer_type, data_dir):
     if tokenizer_type is None or tokenizer_type == "GPT2BPETokenizer":
         GPT2_VOCAB_FP = f"{data_dir}//gpt2-vocab.json"
