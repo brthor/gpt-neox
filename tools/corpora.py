@@ -14,7 +14,9 @@
 # limitations under the License.
 
 
-import os
+import os 
+import urllib.request
+import urllib.error
 from abc import ABC, abstractmethod
 from multiprocessing import cpu_count
 
@@ -304,7 +306,7 @@ class RedPajamaData1T(DataDownloader):
             response = urllib.request.urlopen(aggregate_url)
             data = response.read()
 
-            urls = data.decode().strip()aggregate_url.split('\n')
+            urls = data.decode().strip().split('\n')
 
         except urllib.error.URLError as e:
             print(f"Error downloading aggregate url file: {e.reason}")
